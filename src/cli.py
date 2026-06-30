@@ -28,6 +28,16 @@ def main():
             continue
 
         filepath = input_val
+        
+        # If it's a directory, parse all CSV/PDF files inside it
+        if os.path.isdir(filepath):
+            for filename in os.listdir(filepath):
+                if filename.endswith(".csv"):
+                    all_extracted.extend(extract_from_csv(os.path.join(filepath, filename)))
+                elif filename.endswith(".pdf"):
+                    all_extracted.extend(extract_from_pdf(os.path.join(filepath, filename)))
+            continue
+
         if not os.path.exists(filepath):
             print(f"Warning: File not found {filepath}")
             continue
