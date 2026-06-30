@@ -240,27 +240,161 @@ The test suite validates:
 
 ```json
 {
-  "candidate_id": "dhileepantv@gmail.com",
-  "full_name": "DHILEEPAN T",
-  "primary_email": "dhileepantv@gmail.com",
-  "phone": "+919597349871",
-  "skills": [
-    "C",
-    "TypeScript",
-    "Git",
-    "Spring Boot",
-    "C++",
-    "React.js",
-    "GitHub",
-    "Bootstrap",
-    "Python",
-    "Next.js",
-    "JavaScript",
-    "MongoDB"
+  "candidate_id": null,
+  "education": [],
+  "emails": [
+    "dhileepantv@gmail.com"
   ],
+  "experience": [
+    {
+      "company": "Eightfold AI",
+      "end": null,
+      "start": null,
+      "summary": null,
+      "title": "Software Engineer Intern"
+    }
+  ],
+  "full_name": "DHILEEPAN T",
   "headline": "Aspiring full-stack developer focused on MERN Stack, problem solving (DSA) , and real-world projects. Exploring AI, web development, and coding challenges.",
-  "github_url": "https://github.com/dhileepant",
-  "overall_confidence": 0.91
+  "links": {
+    "github": "https://github.com/dhileepant",
+    "linkedin": null,
+    "other": [],
+    "portfolio": null
+  },
+  "location": {
+    "city": null,
+    "country": null,
+    "region": null
+  },
+  "overall_confidence": 0.91,
+  "phones": [
+    "+919597349871"
+  ],
+  "provenance": [
+    {
+      "field": "full_name",
+      "method": "direct_extract",
+      "source": "github_api (dhileepant)"
+    },
+    {
+      "field": "headline",
+      "method": "direct_extract",
+      "source": "github_api (dhileepant)"
+    },
+    {
+      "field": "links",
+      "method": "extracted",
+      "source": "github_api (dhileepant)"
+    },
+    {
+      "field": "emails",
+      "method": "regex_or_direct",
+      "source": "csv_export (d3f1f4b4-2a34-4490-9dc8-778e50c8a22b_recruiter_export.csv)"
+    },
+    {
+      "field": "phones",
+      "method": "normalized_e164",
+      "source": "csv_export (d3f1f4b4-2a34-4490-9dc8-778e50c8a22b_recruiter_export.csv)"
+    },
+    {
+      "field": "experience",
+      "method": "extracted",
+      "source": "csv_export (d3f1f4b4-2a34-4490-9dc8-778e50c8a22b_recruiter_export.csv)"
+    },
+    {
+      "field": "skills",
+      "method": "normalized_canonical",
+      "source": "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+    }
+  ],
+  "skills": [
+    {
+      "confidence": 0.8,
+      "name": "C",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "TypeScript",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "Git",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "Spring Boot",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "C++",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "React.js",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "GitHub",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "Bootstrap",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "Python",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "Next.js",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "JavaScript",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    },
+    {
+      "confidence": 0.8,
+      "name": "MongoDB",
+      "sources": [
+        "resume_pdf (33aff847-6aca-4f13-8808-3f4b569e7735_resume_dhileepan.pdf)"
+      ]
+    }
+  ],
+  "years_experience": null
 }
 ```
 
