@@ -1,78 +1,316 @@
 # Multi-Source Candidate Data Transformer
 
-This repository contains the submission for the **Eightfold Engineering Intern (Jul-Dec 2026) Assignment** by **Dhileepan T** (`dhileepantv@gmail.com`).
+A production-style data transformation pipeline that ingests candidate information from multiple heterogeneous sources, performs deterministic entity resolution, normalizes and validates data, and produces a unified canonical candidate profile with complete provenance tracking and configurable output projections.
 
-🎥 **[Insert Demo Video Link Here]**
+🎥 **Demo Video:** [Insert Demo Video Link]
 
-## 🎯 Assignment Checklist & Implementation
+---
 
-This pipeline is engineered to ingest messy candidate data from multiple sources (both structured and unstructured) and resolve it into a single clean, canonical profile per candidate.
+## Features
 
-- ✅ **Run end-to-end & emit valid JSON**: Exposes a thin CLI that dynamically processes inputs and outputs schema-valid JSON based on `config.json`.
-- ✅ **Cover at least 2 source types**: Successfully processes:
-  - **Structured**: Recruiter CSV Export (`recruiter_export.csv`)
-  - **Unstructured**: Resume PDF (`resume_dhileepan.pdf`, `resume_jane.pdf`)
-  - **Structured API**: GitHub Profile via URL extraction.
-- ✅ **Normalize correctly**: Built-in normalizers handle converting Phone numbers to E.164 format, dates to YYYY-MM, and a custom normalizer that tokenizes and deduplicates skills into canonical forms (e.g. `react`, `react.js`, `reactjs` -> `React.js`).
-- ✅ **Merge across sources into one record**: Implements a robust **Deterministic Match Engine** prioritizing strong identifiers (Email, E.164 Phone, GitHub URL) to group and merge records.
-- ✅ **Provenance and confidence**: Every output field is traced via a `provenance` log detailing the original `source`, extraction `method`, and assigned `confidence` level.
-- ✅ **Degrade gracefully**: Handles missing files (e.g., throwing a non-fatal warning if an input file is missing or a garbage URL is passed) and continues processing valid sources. 
-- ✅ **Automated Tests**: Comprehensive Pytest suite covering normalization, deterministic merging logic, and edge cases.
+- **Multi-source ingestion**
+  - Structured Sources
+    - Recruiter CSV Export
+    - GitHub Profile (REST API)
+  - Unstructured Sources
+    - Resume PDF
 
-## 🚀 Getting Started
+- **Deterministic Entity Resolution**
+  - Merges candidate profiles using strong identifiers:
+    - Email
+    - Phone Number (E.164)
+    - GitHub URL
+  - Prevents false-positive merges by avoiding probabilistic matching.
 
-### Prerequisites
+- **Normalization**
+  - Phone numbers → E.164
+  - Dates → YYYY-MM
+  - Skills → Canonical names
+  - Duplicate removal
+
+- **Conflict Resolution**
+  - Selects the highest-confidence value across multiple sources.
+  - Preserves complete provenance for every field.
+
+- **Configurable Projection Layer**
+  - Dynamic output schema using `config.json`
+  - Field mapping
+  - Field renaming
+  - Optional fields
+  - Runtime projections
+
+- **Validation**
+  - Schema validation via Pydantic
+  - Missing source handling
+  - Graceful degradation
+  - Invalid input detection
+
+- **Testing**
+  - Automated Pytest suite
+  - Normalization tests
+  - Entity resolution tests
+  - Edge-case coverage
+
+---
+
+# Architecture
+
+```
+                Recruiter CSV
+                     │
+                     │
+                Resume PDF
+                     │
+                     │
+               GitHub REST API
+                     │
+                     ▼
+               Source Parsers
+                     │
+                     ▼
+               Normalizers
+                     │
+                     ▼
+        Deterministic Entity Resolution
+                     │
+                     ▼
+            Conflict Resolution
+                     │
+                     ▼
+            Canonical Candidate
+                     │
+                     ▼
+             Projection Layer
+                     │
+                     ▼
+             Schema Validator
+                     │
+                     ▼
+               Output JSON
+```
+
+---
+
+# Project Structure
+
+```
+multi-source-candidate-data-transformer/
+│
+├── src/
+│   ├── __init__.py
+│   ├── cli.py             # Entry point for the application
+│   ├── extractors.py      # PDF, CSV, and GitHub API parsing logic
+│   ├── merger.py          # Deterministic matching and conflict resolution
+│   ├── normalizers.py     # Data cleaning (phones, dates, canonical skills)
+│   ├── projector.py       # JSON output projection logic
+│   └── schema.py          # Pydantic models for validation
+│
+├── tests/
+│   ├── __init__.py
+│   └── test_pipeline.py   # Unit tests for the pipeline
+│
+├── inputs/
+│   ├── recruiter_export.csv
+│   ├── resume_dhileepan.pdf
+│   └── resume_jane.pdf
+│
+├── config.json            # Configuration schema
+├── final_output.json      # Final merged & projected output
+├── generate_mocks.py      # Utility script for generating mock CSVs
+├── generate_pdf.py        # Utility script for generating mock PDFs
+└── README.md
+```
+
+---
+
+# Technology Stack
+
 - Python 3.9+
-- `pip`
+- Pydantic
+- PyPDF
+- phonenumbers
+- python-dateutil
+- GitHub REST API
+- Pytest
 
-### Setup
+---
+
+# Installation
+
+## Create Virtual Environment
 
 ```bash
-# Create and activate a virtual environment
 python -m venv venv
-# On Windows:
-.\venv\Scripts\Activate.ps1
-# On Mac/Linux:
-source venv/bin/activate
+```
 
-# Install dependencies
+Windows
+
+```bash
+.\venv\Scripts\Activate.ps1
+```
+
+Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies
+
+```bash
 pip install pydantic phonenumbers python-dateutil pypdf pytest
 ```
 
-## 🛠 Exact Run Steps
+---
 
-### 1. Run the Data Pipeline
-A thin CLI is provided. Pass the input files (CSV, PDF, or API URLs), the projection config, and an output file. 
-
-*Note: The CLI degrades gracefully; if you pass a missing/garbage file (like `missing.pdf`), it logs a warning but still successfully processes the rest.*
+# Running the Pipeline
 
 ```bash
-python src/cli.py --inputs inputs/recruiter_export.csv inputs/resume_dhileepan.pdf inputs/resume_jane.pdf missing.pdf https://github.com/dhileepant --config config.json --output final_output.json
+python src/cli.py \
+--inputs \
+inputs/recruiter_export.csv \
+inputs/resume_dhileepan.pdf \
+inputs/resume_jane.pdf \
+https://github.com/dhileepant \
+--config config.json \
+--output final_output.json
 ```
 
-**What happens here:**
-1. The pipeline parses the CSV, PDFs, and makes a live fetch to the GitHub API.
-2. The Deterministic Merge Engine observes that the GitHub API and the `resume_dhileepan.pdf` share the exact same GitHub URL (extracted from hidden PDF hyperlinks!).
-3. The CSV shares the same Email. 
-4. All three sources are dynamically merged into **one** canonical profile for Dhileepan T, with fields prioritized by confidence scores. The output is printed to the CLI and saved to `final_output.json`.
+The pipeline will:
 
-### 2. Run the Test Suite
-The unit tests validate the core architectural components (Normalizers and the Deterministic Match Engine), including an edge case testing that two profiles with matching names but no matching strong identifiers are correctly kept separate (preventing false-positive merges).
+1. Parse all input sources.
+2. Normalize phones, dates and skills.
+3. Resolve duplicate candidate profiles using deterministic identifiers.
+4. Merge records into canonical profiles.
+5. Validate the output schema via Pydantic.
+6. Produce JSON according to the requested projection.
+
+---
+
+# Running Tests
 
 ```bash
 pytest tests/
 ```
 
-## 🧠 Design Decisions, Assumptions & Descoping
+The test suite validates:
 
-1. **Deterministic Merging (Zero False-Positives)**: The assignment dictates that "incorrect but confident outputs are worse than incomplete ones". Therefore, I descoped probabilistic threshold scoring (e.g. matching based on Name + Company). Two profiles are *only* merged if they share an exact match on a strong identifier (Email, Phone, GitHub URL).
-2. **Confidence-Based Projection**: Conflict resolution between merged records prioritizes high-fidelity sources over heuristic extraction. For example, a name extracted directly from a GitHub API is given a higher base confidence (0.95) than a name extracted via NLP/Regex from an unstructured PDF (0.80).
-3. **Regex over LLMs for PDFs**: Instead of using an LLM (which requires paid API keys to test) or a heavy NLP suite, I built the PDF unstructured extraction using modular Regex heuristics. This ensures the evaluator can run this repository completely out-of-the-box locally.
-4. **Configuration Mapping**: The `config.json` leverages a simplified JSONPath-style syntax (`from: "emails[0]"`) to dynamically map the internal Pydantic CanonicalProfile into whatever final shape the consumer needs.
+- Phone normalization
+- Skill canonicalization
+- Date normalization
+- Entity resolution
+- Conflict resolution
+- Missing input handling
+- Duplicate detection
 
-## 📦 Deliverables Included
+---
 
-- **Step 1 (Technical Design)**: Available upon request or via application portal.
-- **Step 2 (Implementation)**: This repository.
-- **Output Data**: `final_output.json`
-- **Demo Video**: [Link at top of document]
+# Example Output
+
+```json
+{
+  "candidate_id": "dhileepantv@gmail.com",
+  "full_name": "DHILEEPAN T",
+  "primary_email": "dhileepantv@gmail.com",
+  "phone": "+919597349871",
+  "skills": [
+    "C",
+    "TypeScript",
+    "Git",
+    "Spring Boot",
+    "C++",
+    "React.js",
+    "GitHub",
+    "Bootstrap",
+    "Python",
+    "Next.js",
+    "JavaScript",
+    "MongoDB"
+  ],
+  "headline": "Aspiring full-stack developer focused on MERN Stack, problem solving (DSA) , and real-world projects. Exploring AI, web development, and coding challenges.",
+  "github_url": "https://github.com/dhileepant",
+  "overall_confidence": 0.91
+}
+```
+
+---
+
+# Design Decisions
+
+### Deterministic Entity Resolution
+
+The assignment explicitly states:
+
+> **"Wrong-but-confident is worse than honestly-empty."**
+
+To align with this philosophy, candidate profiles are merged **only** when strong identifiers match exactly:
+
+- Email
+- Phone Number
+- GitHub URL
+
+This avoids false-positive merges while ensuring explainable, deterministic behavior.
+
+---
+
+### Provenance Tracking
+
+Every field records:
+
+- Source
+- Extraction method
+- Confidence
+
+allowing complete traceability for all generated data.
+
+---
+
+### Modular Extraction
+
+Each source has an independent parser (located in `src/extractors.py`), making it easy to support additional sources without modifying downstream components.
+
+---
+
+### Configurable Output
+
+The internal canonical profile is transformed into any requested schema through a configuration-driven projection layer without changing application logic.
+
+---
+
+# Assumptions
+
+- Recruiter CSV contains reliable structured data.
+- Resume PDFs contain selectable text (not scanned images).
+- GitHub profile information is publicly accessible.
+- Email, phone number and GitHub URL are treated as strong identifiers for entity resolution.
+
+---
+
+# Limitations
+
+- OCR for scanned resumes is not currently supported.
+- LinkedIn integration is intentionally excluded due to the lack of a public API.
+- Skill extraction uses heuristic parsing rather than semantic NLP/LLMs to ensure this codebase is runnable out-of-the-box locally without external API keys.
+
+---
+
+# Future Improvements
+
+- ATS JSON parser
+- LinkedIn parser
+- OCR support for scanned resumes
+- LLM-based semantic skill extraction
+- Batch processing
+- Async source ingestion
+- Additional configurable normalization strategies
+
+---
+
+# Deliverables
+
+- ✅ Technical Design (Provided separately)
+- ✅ Source Code
+- ✅ README
+- ✅ Sample Outputs (`final_output.json`)
+- ✅ Test Suite
+- ✅ Demo Video
