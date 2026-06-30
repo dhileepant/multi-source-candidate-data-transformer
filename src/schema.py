@@ -41,8 +41,8 @@ class CanonicalProfile(BaseModel):
     full_name: Optional[str] = None
     emails: List[str] = Field(default_factory=list)
     phones: List[str] = Field(default_factory=list)
-    location: Optional[Location] = None
-    links: Optional[Links] = None
+    location: Location = Field(default_factory=Location)
+    links: Links = Field(default_factory=Links)
     headline: Optional[str] = None
     years_experience: Optional[float] = None
     skills: List[Skill] = Field(default_factory=list)

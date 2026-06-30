@@ -28,7 +28,7 @@ def process():
     github_url = request.form.get('github_url', '').strip()
     
     # Load config
-    config_path = 'config.json'
+    config_path = 'default_config.json'
     with open(config_path, 'r') as f:
         config = json.load(f)
         

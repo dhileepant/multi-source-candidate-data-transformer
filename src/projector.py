@@ -7,6 +7,9 @@ def project_output(profile: CanonicalProfile, config: Dict[str, Any]) -> Dict[st
     """
     Applies runtime config to project the canonical profile into the final requested shape.
     """
+    if config.get("passthrough"):
+        return profile.model_dump(exclude_none=False)
+        
     profile_dict = profile.model_dump(exclude_none=True)
     output = {}
     

@@ -191,14 +191,20 @@ python app.py
 ### Option 2: Command Line Interface (CLI)
 You can also run the pipeline directly via the CLI for batch processing.
 
+**For the Official Eightfold Canonical Schema (Default):**
 ```bash
 python src/cli.py \
---inputs \
-inputs/recruiter_export.csv \
-<path_to_any_resume.pdf> \
-https://github.com/dhileepant \
---config config.json \
+--inputs inputs/recruiter_export.csv \
+--config default_config.json \
 --output final_output.json
+```
+
+**For a Custom Simplified Projection:**
+```bash
+python src/cli.py \
+--inputs inputs/recruiter_export.csv \
+--config custom_config.json \
+--output custom_output.json
 ```
 
 The pipeline will:
@@ -298,7 +304,9 @@ Each source has an independent parser (located in `src/extractors.py`), making i
 
 ### Configurable Output
 
-The internal canonical profile is transformed into any requested schema through a configuration-driven projection layer without changing application logic.
+The repository supports dynamic runtime projections to shape the output exactly as needed, without changing any backend logic.
+- **`default_config.json`**: Outputs the official canonical schema mandated by the Eightfold assignment (including complex objects for location, links, and provenance).
+- **`custom_config.json`**: Outputs a simplified, flattened schema (e.g., pulling `primary_email` directly from `emails[0]`, collapsing skills into an array of strings).
 
 ---
 
