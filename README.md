@@ -5,7 +5,7 @@ A production-style data transformation pipeline that ingests candidate informati
 🚀 **Live Demo:** [multi-source-candidate-data-transformer-production.up.railway.app](https://multi-source-candidate-data-transformer-production.up.railway.app/)
 *(The application is currently hosted on Railway and fully interactive)*
 
-🎥 **Demo Video:** [Insert Demo Video Link]
+🎥 **Demo Video:** https://github.com/user-attachments/assets/e3ecc5ec-c39c-4cdd-8ddc-d03da11562f7
 
 ---
 
