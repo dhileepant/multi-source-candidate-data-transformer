@@ -2,6 +2,9 @@
 
 A production-style data transformation pipeline that ingests candidate information from multiple heterogeneous sources, performs deterministic entity resolution, normalizes and validates data, and produces a unified canonical candidate profile with complete provenance tracking and configurable output projections.
 
+🚀 **Live Demo:** [multi-source-candidate-data-transformer-production.up.railway.app](https://multi-source-candidate-data-transformer-production.up.railway.app/)
+*(The application is currently hosted on Railway and fully interactive)*
+
 🎥 **Demo Video:** [Insert Demo Video Link]
 
 ---
@@ -135,42 +138,64 @@ multi-source-candidate-data-transformer/
 
 ---
 
-# Installation
+# Offline Setup & Installation
 
-## Create Virtual Environment
+You can run this project locally using either **Docker** (recommended) or a standard Python virtual environment.
 
-```bash
-python -m venv venv
-```
+### Option 1: Docker (Recommended)
+This is the easiest way to run the application without worrying about local dependencies.
 
-Windows
+1. Build the Docker image:
+   ```bash
+   docker build -t candidate-transformer .
+   ```
+2. Run the container:
+   ```bash
+   docker run -p 5000:5000 candidate-transformer
+   ```
+3. Open `http://localhost:5000` in your browser.
 
-```bash
-.\venv\Scripts\Activate.ps1
-```
+### Option 2: Python Virtual Environment
 
-Linux / macOS
+1. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   ```
 
-```bash
-source venv/bin/activate
-```
+2. Activate the environment:
+   - **Windows:** `.\venv\Scripts\Activate.ps1`
+   - **Linux / macOS:** `source venv/bin/activate`
 
-Install dependencies
-
-```bash
-pip install pydantic phonenumbers python-dateutil pypdf pytest
-```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Run the application:
+   ```bash
+   python app.py
+   ```
+5. Open `http://localhost:5000` in your browser.
 
 ---
 
 # Running the Pipeline
 
+### Option 1: Web Dashboard (Interactive)
+The easiest way to run the pipeline is through the web dashboard, which provides a beautiful UI to upload files and visualize the entity resolution process in real-time.
+
+```bash
+python app.py
+```
+*(Then open http://127.0.0.1:5000 in your browser)*
+
+### Option 2: Command Line Interface (CLI)
+You can also run the pipeline directly via the CLI for batch processing.
+
 ```bash
 python src/cli.py \
 --inputs \
 inputs/recruiter_export.csv \
-inputs/resume_dhileepan.pdf \
-inputs/resume_jane.pdf \
+<path_to_any_resume.pdf> \
 https://github.com/dhileepant \
 --config config.json \
 --output final_output.json
