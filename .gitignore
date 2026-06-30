@@ -14,3 +14,8 @@ venv/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Ignored pipeline outputs and test files
+final_output.json
+test_api.py
+*.pdf
