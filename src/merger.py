@@ -38,29 +38,35 @@ def is_deterministic_match(record_a: Dict[str, Any], record_b: Dict[str, Any]) -
 
 def merge_records(extracted_records: List[Dict[str, Any]]) -> List[CanonicalProfile]:
     """
-    Groups records by match score and merges them resolving conflicts.
+    Groups records by finding connected components (indirect matches) and merges them.
     """
-    clusters = []  # List of lists of records
+    n = len(extracted_records)
+    adj = {i: [] for i in range(n)}
     
-    for record in extracted_records:
-        best_cluster_idx = -1
-        
-        for idx, cluster in enumerate(clusters):
-            # Check if this record deterministically matches ANY record in this cluster
-            matches_cluster = False
-            for existing_record in cluster:
-                if is_deterministic_match(record, existing_record):
-                    matches_cluster = True
-                    break
-                    
-            if matches_cluster:
-                best_cluster_idx = idx
-                break  # Merge into the first matching cluster
+    for i in range(n):
+        for j in range(i + 1, n):
+            if is_deterministic_match(extracted_records[i], extracted_records[j]):
+                adj[i].append(j)
+                adj[j].append(i)
                 
-        if best_cluster_idx != -1:
-            clusters[best_cluster_idx].append(record)
-        else:
-            clusters.append([record])
+    visited = set()
+    clusters = []
+    
+    for i in range(n):
+        if i not in visited:
+            component = []
+            queue = [i]
+            visited.add(i)
+            
+            while queue:
+                curr = queue.pop(0)
+                component.append(extracted_records[curr])
+                for neighbor in adj[curr]:
+                    if neighbor not in visited:
+                        visited.add(neighbor)
+                        queue.append(neighbor)
+                        
+            clusters.append(component)
             
     canonical_profiles = []
     for cluster in clusters:

@@ -1,0 +1,258 @@
+[
+  {
+    "candidate_id": "dhileepantv@gmail.com",
+    "full_name": "DHILEEPAN T",
+    "primary_email": "dhileepantv@gmail.com",
+    "phone": "+919597349871",
+    "skills": [
+      "C",
+      "TypeScript",
+      "Git",
+      "Spring Boot",
+      "C++",
+      "React.js",
+      "GitHub",
+      "Bootstrap",
+      "Python",
+      "Next.js",
+      "JavaScript",
+      "MongoDB"
+    ],
+    "headline": "Aspiring full-stack developer focused on MERN Stack, problem solving (DSA) , and real-world projects. Exploring AI, web development, and coding challenges.",
+    "github_url": "https://github.com/dhileepant",
+    "overall_confidence": 0.91,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "github_api (dhileepant)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "headline",
+        "source": "github_api (dhileepant)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "links",
+        "source": "github_api (dhileepant)",
+        "method": "extracted"
+      },
+      {
+        "field": "emails",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "regex_or_direct"
+      },
+      {
+        "field": "phones",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "normalized_e164"
+      },
+      {
+        "field": "experience",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "extracted"
+      },
+      {
+        "field": "skills",
+        "source": "resume_pdf (resume_dhileepan.pdf)",
+        "method": "normalized_canonical"
+      }
+    ]
+  },
+  {
+    "candidate_id": "jane.doe@example.com",
+    "full_name": "Jane Doe",
+    "primary_email": "jane.doe@example.com",
+    "phone": "(555) 123-4567",
+    "overall_confidence": 0.9,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "emails",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "regex_or_direct"
+      },
+      {
+        "field": "phones",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "normalized_e164"
+      },
+      {
+        "field": "experience",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "extracted"
+      }
+    ]
+  },
+  {
+    "candidate_id": "alice.smith@example.com",
+    "full_name": "Alice Smith",
+    "primary_email": "alice.smith@example.com",
+    "phone": "111-222-3333",
+    "skills": [
+      "Python",
+      "Pandas",
+      "Pyspark",
+      "Aws"
+    ],
+    "overall_confidence": 0.88,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "emails",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "regex_or_direct"
+      },
+      {
+        "field": "phones",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "normalized_e164"
+      },
+      {
+        "field": "experience",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "extracted"
+      },
+      {
+        "field": "skills",
+        "source": "resume_pdf (resume_alice.pdf)",
+        "method": "normalized_canonical"
+      }
+    ]
+  },
+  {
+    "candidate_id": "bobj@example.com",
+    "full_name": "Bob Johnson",
+    "primary_email": "bobj@example.com",
+    "phone": "+14455556666",
+    "overall_confidence": 0.9,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "emails",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "regex_or_direct"
+      },
+      {
+        "field": "phones",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "normalized_e164"
+      },
+      {
+        "field": "experience",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "extracted"
+      }
+    ]
+  },
+  {
+    "candidate_id": "charlie@email.com",
+    "full_name": "Charlie Brown",
+    "primary_email": "charlie@email.com",
+    "phone": "999-999-9999",
+    "overall_confidence": 0.9,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "emails",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "regex_or_direct"
+      },
+      {
+        "field": "phones",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "normalized_e164"
+      },
+      {
+        "field": "experience",
+        "source": "csv_export (recruiter_export.csv)",
+        "method": "extracted"
+      }
+    ]
+  },
+  {
+    "candidate_id": "bob.j@example.com",
+    "full_name": "Bob Johnson",
+    "primary_email": "bob.j@example.com",
+    "phone": "444-555-6666",
+    "skills": [
+      "Docker",
+      "Kubernetes",
+      "Aws",
+      "Terraform"
+    ],
+    "overall_confidence": 0.8,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "resume_pdf (resume_bob.pdf)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "emails",
+        "source": "resume_pdf (resume_bob.pdf)",
+        "method": "regex_or_direct"
+      },
+      {
+        "field": "phones",
+        "source": "resume_pdf (resume_bob.pdf)",
+        "method": "normalized_e164"
+      },
+      {
+        "field": "skills",
+        "source": "resume_pdf (resume_bob.pdf)",
+        "method": "normalized_canonical"
+      }
+    ]
+  },
+  {
+    "candidate_id": "charlie.brown@other.com",
+    "full_name": "Charlie Brown",
+    "primary_email": "charlie.brown@other.com",
+    "phone": "+18888888888",
+    "skills": [
+      "Figma",
+      "Photoshop",
+      "Ui/Ux"
+    ],
+    "overall_confidence": 0.8,
+    "provenance": [
+      {
+        "field": "full_name",
+        "source": "resume_pdf (resume_charlie.pdf)",
+        "method": "direct_extract"
+      },
+      {
+        "field": "emails",
+        "source": "resume_pdf (resume_charlie.pdf)",
+        "method": "regex_or_direct"
+      },
+      {
+        "field": "phones",
+        "source": "resume_pdf (resume_charlie.pdf)",
+        "method": "normalized_e164"
+      },
+      {
+        "field": "skills",
+        "source": "resume_pdf (resume_charlie.pdf)",
+        "method": "normalized_canonical"
+      }
+    ]
+  }
+]
