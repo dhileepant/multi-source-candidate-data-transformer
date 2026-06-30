@@ -1,6 +1,11 @@
 import argparse
 import json
+import sys
 import os
+
+# Ensure the parent directory is in sys.path so 'src' can be imported
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from src.extractors import extract_from_csv, extract_from_pdf, extract_from_github
 from src.merger import merge_records
 from src.projector import project_output
