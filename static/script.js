@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData();
         uploadedFiles.forEach(file => formData.append('files', file));
         formData.append('github_url', document.getElementById('github-url').value);
+        formData.append('config', document.getElementById('config-select').value);
 
         try {
             const response = await fetch('/process', {

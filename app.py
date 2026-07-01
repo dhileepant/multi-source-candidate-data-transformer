@@ -28,7 +28,12 @@ def process():
     github_url = request.form.get('github_url', '').strip()
     
     # Load config
-    config_path = 'default_config.json'
+    config_filename = request.form.get('config', 'default_config.json')
+    # Basic security check to prevent directory traversal
+    if config_filename not in ['default_config.json', 'custom_config.json']:
+        config_filename = 'default_config.json'
+        
+    config_path = os.path.join(os.getcwd(), config_filename)
     with open(config_path, 'r') as f:
         config = json.load(f)
         

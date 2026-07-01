@@ -41,6 +41,14 @@
                     <div class="file-list" id="file-list"></div>
 
                     <div class="input-group">
+                        <label for="config-select">Projection Configuration</label>
+                        <select id="config-select" name="config" class="glass-input" style="appearance: auto; background-color: rgba(255, 255, 255, 0.05); color: white;">
+                            <option value="default_config.json" style="background-color: #1a1a2e;">Official Eightfold Schema (Default)</option>
+                            <option value="custom_config.json" style="background-color: #1a1a2e;">Custom Simplified Schema</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
                         <label for="github-url">GitHub Profile URL (Optional)</label>
                         <input type="url" id="github-url" name="github_url" placeholder="https://github.com/dhileepant" class="glass-input">
                     </div>
